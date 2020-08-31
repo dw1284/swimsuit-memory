@@ -1,0 +1,71 @@
+.lola {
+  background: url('../../assets/images/gameboards/lola.png');
+}
+
+.marge {
+  background: url('../../assets/images/gameboards/marge.png');
+}
+
+.olive-oil {
+  background: url('../../assets/images/gameboards/olive-oil.png');
+}
+
+.gameboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 100%;
+  margin-top: 25px;
+}
+
+.gameboard {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid black;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  margin-bottom: 10px;
+}
+
+.gameboard-title {
+  font-family: cursive;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.gameboard-tile {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  transition: background 1s;
+}
+
+.gameboard-tile.shake {
+  animation: shake .5s;
+}
+
+.gameboard-controls {
+  height: 20px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}

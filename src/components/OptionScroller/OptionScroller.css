@@ -1,0 +1,16 @@
+.option-scroller {
+  display: flex;
+  flex-direction: row;
+}
+
+.option-scroller button {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.selected-option-label {
+  text-align: center;
+  width: 100px;
+  font-weight: 300;
+}
