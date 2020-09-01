@@ -2,8 +2,24 @@
   background: url('../../assets/images/gameboards/lola.png');
 }
 
+.homer {
+  background: url('../../assets/images/gameboards/homer.png');
+}
+
 .marge {
   background: url('../../assets/images/gameboards/marge.png');
+}
+
+.wilma {
+  background: url('../../assets/images/gameboards/wilma.png');
+}
+
+.barney {
+  background: url('../../assets/images/gameboards/barney.png');
+}
+
+.marge2 {
+  background: url('../../assets/images/gameboards/marge2.png');
 }
 
 .olive-oil {
