@@ -14,6 +14,7 @@ class Gameboard extends React.Component {
     for (let x=1; x<=tileCount; x++) {
       tiles.push({
         id: x,
+        backgroundClassName: `card${Math.round(x / 2)}`,
         value: Math.round(x / 2),
         status: 'hidden' // matched, visible, or hidden
       })
@@ -75,7 +76,8 @@ class Gameboard extends React.Component {
     const tileHeight = `${Math.trunc(parseInt(backgroundHeight) / tilesPerColumn) / parseInt(backgroundHeight) * 100}%`;
     
     return _.map(tiles, tile => {
-      const tileBackground = tile.status === 'matched' ? 'transparent' : 'white';
+      const tileBackground = tile.status === 'matched' ? 'transparent' : tile.status === 'hidden' ? 'white' : '';
+      const tileBackgroundClassName = tile.status === 'visible' ? tile.backgroundClassName : null;
       const tileBorder = status === 'active' ? '1px solid' : 'none';
       const tileCursor = tile.status === 'hidden' ? 'pointer' : 'default';
       const tileClassName = tile.className;
@@ -83,12 +85,10 @@ class Gameboard extends React.Component {
       return (
         <div 
           key={tile.id}
-          className={`gameboard-tile ${tileClassName}`}
+          className={`gameboard-tile ${tileClassName ? tileClassName : ''} ${tileBackgroundClassName ? tileBackgroundClassName : ''}`}
           style={{background: tileBackground, border: tileBorder, cursor: tileCursor, height: tileHeight, width: tileWidth}}
           onClick={() => {this.onTileClick(tile.id)}}
-        >
-            {tile.status === 'visible' && tile.value}
-        </div>
+        />
       );
     });
   };
