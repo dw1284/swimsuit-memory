@@ -16,7 +16,7 @@ class Gameboard extends React.Component {
         id: x,
         backgroundClassName: `card${Math.round(x / 2)}`,
         value: Math.round(x / 2),
-        status: 'matched' // matched, visible, or hidden
+        status: 'hidden' // matched, visible, or hidden
       })
     }
     
