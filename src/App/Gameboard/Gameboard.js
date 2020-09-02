@@ -28,6 +28,15 @@ class Gameboard extends React.Component {
     }
   }
   
+  componentDidMount() {
+    // Preload card images so that the browser isn't downloading them in realtime
+    // Also, this is more efficient because they download once and remain downloaded no matter how many times you play the game
+    for (let x=1; x<=12; x++) {
+      const img = new Image();
+      img.src = cardConfigs[`card${x}`];
+    }
+  }
+  
   onTileClick = (tileId) => {
     let tiles = _.cloneDeep(this.state.tiles);
     let clickedTile = _.find(tiles, {id: tileId});
@@ -77,7 +86,6 @@ class Gameboard extends React.Component {
     const tileHeight = `${Math.trunc(parseInt(backgroundHeight) / tilesPerColumn) / parseInt(backgroundHeight) * 100}%`;
     
     return _.map(tiles, tile => {
-      const tileBackground = tile.status === 'matched' ? 'transparent' : tile.status === 'hidden' ? 'white' : `white url('${tile.cardImgUrl}') center/contain no-repeat`;
       const tileBorder = status === 'active' ? '1px solid' : 'none';
       const tileCursor = tile.status === 'hidden' ? 'pointer' : 'default';
       const tileClassName = tile.className;
@@ -86,9 +94,13 @@ class Gameboard extends React.Component {
         <div 
           key={tile.id}
           className={`gameboard-tile ${tileClassName ? tileClassName : ''}`}
-          style={{background: tileBackground, border: tileBorder, cursor: tileCursor, height: tileHeight, width: tileWidth}}
+          style={{border: tileBorder, cursor: tileCursor, height: tileHeight, width: tileWidth}}
           onClick={() => {this.onTileClick(tile.id)}}
-        />
+        >
+          <div style={{display: tile.status === 'matched' ? 'block' : 'none', background: 'transparent'}} />
+          <div style={{display: tile.status === 'hidden'  ? 'block' : 'none', background: 'white'}} />
+          <div style={{display: tile.status === 'visible' ? 'block' : 'none', background: `white url('${tile.cardImgUrl}') center/contain no-repeat`}} />
+        </div>
       );
     });
   };
