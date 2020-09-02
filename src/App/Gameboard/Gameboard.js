@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import './Gameboard.css';
+import cardConfigs from '../../configs/card-configs';
 
 class Gameboard extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class Gameboard extends React.Component {
     for (let x=1; x<=tileCount; x++) {
       tiles.push({
         id: x,
-        cardClassName: `card${Math.round(x / 2)}`,
+        cardImgUrl: cardConfigs[`card${Math.round(x / 2)}`],
         value: Math.round(x / 2),
         status: 'hidden' // matched, visible, or hidden
       });
@@ -26,12 +27,6 @@ class Gameboard extends React.Component {
       status: 'active' // active or complete
     }
   }
-  
-  // componentDidMount() {
-  //   this.props.pictures.forEach((picture) => {
-  //     const img = new Image();
-  //     img.src = picture.fileName;
-  // });
   
   onTileClick = (tileId) => {
     let tiles = _.cloneDeep(this.state.tiles);
@@ -82,8 +77,7 @@ class Gameboard extends React.Component {
     const tileHeight = `${Math.trunc(parseInt(backgroundHeight) / tilesPerColumn) / parseInt(backgroundHeight) * 100}%`;
     
     return _.map(tiles, tile => {
-      const tileBackground = tile.status === 'matched' ? 'transparent' : tile.status === 'hidden' ? 'white' : '';
-      const tileCardClassName = tile.status === 'matched' ? null : tile.cardClassName;
+      const tileBackground = tile.status === 'matched' ? 'transparent' : tile.status === 'hidden' ? 'white' : `white url('${tile.cardImgUrl}') center/contain no-repeat`;
       const tileBorder = status === 'active' ? '1px solid' : 'none';
       const tileCursor = tile.status === 'hidden' ? 'pointer' : 'default';
       const tileClassName = tile.className;
@@ -91,7 +85,7 @@ class Gameboard extends React.Component {
       return (
         <div 
           key={tile.id}
-          className={`gameboard-tile ${tileClassName ? tileClassName : ''} ${tileCardClassName ? tileCardClassName : ''}`}
+          className={`gameboard-tile ${tileClassName ? tileClassName : ''}`}
           style={{background: tileBackground, border: tileBorder, cursor: tileCursor, height: tileHeight, width: tileWidth}}
           onClick={() => {this.onTileClick(tile.id)}}
         />
