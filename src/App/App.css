@@ -9,3 +9,7 @@
   max-height: 800px;
   max-width: 800px;
 }
+
+.preload {
+  display: none;
+}
