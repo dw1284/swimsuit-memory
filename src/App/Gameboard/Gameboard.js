@@ -28,15 +28,6 @@ class Gameboard extends React.Component {
     }
   }
   
-  componentDidMount() {
-    // Preload card images so that the browser isn't downloading them in realtime
-    // Also, this is more efficient because they download once and remain downloaded no matter how many times you play the game
-    for (let x=1; x<=12; x++) {
-      const img = new Image();
-      img.src = cardConfigs[`card${x}`];
-    }
-  }
-  
   onTileClick = (tileId) => {
     let tiles = _.cloneDeep(this.state.tiles);
     let clickedTile = _.find(tiles, {id: tileId});
