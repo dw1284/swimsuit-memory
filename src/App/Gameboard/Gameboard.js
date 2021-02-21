@@ -103,6 +103,7 @@ class Gameboard extends React.Component {
     return (
       <div className="gameboard-container">
         <div className="gameboard-title">Swimsuit Memory</div>
+        <div className="gameboard-instruction">Find matches by clicking on cards</div>
         <div 
           className={`gameboard ${backgroundClassName}`}
           style={{height: backgroundHeight, width: backgroundWidth}}
