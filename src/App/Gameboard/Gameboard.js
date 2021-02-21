@@ -47,10 +47,17 @@ class Gameboard extends React.Component {
         clickedTile = _.find(tiles, {id: clickedTile.id});
         otherVisibleTile = _.find(tiles, {id: otherVisibleTile.id});
         if (clickedTile.value === otherVisibleTile.value) {
-          clickedTile.status = 'matched';
-          otherVisibleTile.status = 'matched';
-          const status = _.every(tiles, {status: 'matched'}) ? 'complete' : 'active';
-          setTimeout(() => {this.setState({tiles, status})}, 250);
+          clickedTile.cardClassName = 'shrink-until-gone';
+          otherVisibleTile.cardClassName = 'shrink-until-gone';
+          this.setState({tiles}, () => {
+            tiles = _.cloneDeep(tiles);
+            clickedTile = _.find(tiles, {id: clickedTile.id});
+            otherVisibleTile = _.find(tiles, {id: otherVisibleTile.id});
+            clickedTile.status = 'matched';
+            otherVisibleTile.status = 'matched';
+            const status = _.every(tiles, {status: 'matched'}) ? 'complete' : 'active';
+            setTimeout(() => {this.setState({tiles, status})}, 1000);
+          });
         } else {
           clickedTile.className = 'shake';
           otherVisibleTile.className = 'shake';
@@ -80,6 +87,7 @@ class Gameboard extends React.Component {
       const tileBorder = status === 'active' ? '1px solid' : 'none';
       const tileCursor = tile.status === 'hidden' ? 'pointer' : 'default';
       const tileClassName = tile.className;
+      const cardClassName = tile.cardClassName;
       
       return (
         <div 
@@ -88,9 +96,15 @@ class Gameboard extends React.Component {
           style={{border: tileBorder, cursor: tileCursor, height: tileHeight, width: tileWidth}}
           onClick={() => {this.onTileClick(tile.id)}}
         >
-          <div style={{display: tile.status === 'matched' ? 'block' : 'none', background: 'transparent'}} />
-          <div style={{display: tile.status === 'hidden'  ? 'block' : 'none', background: 'white'}} />
-          <div style={{display: tile.status === 'visible' ? 'block' : 'none', background: `white url('${tile.cardImgUrl}') center/contain no-repeat`}} />
+          {tile.status === 'matched' &&
+            <div style={{display: tile.status === 'matched' ? 'block' : 'none', background: 'transparent'}} />
+          }
+          {tile.status !== 'matched' &&
+            <div className={`card ${tile.status === 'visible' ? 'is-flipped' : ''} ${cardClassName ? cardClassName : ''}`}>
+              <div className="face" style={{background: `white url('${cardConfigs.cardBack}') left/cover no-repeat`}} />
+              <div className="face" style={{background: `white url('${tile.cardImgUrl}') center/contain no-repeat`, transform: 'rotateY(180deg)'}} />
+            </div>
+          }
         </div>
       );
     });

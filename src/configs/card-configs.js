@@ -10,6 +10,7 @@ import card9 from '../assets/images/cards/9.png';
 import card10 from '../assets/images/cards/10.png';
 import card11 from '../assets/images/cards/11.png';
 import card12 from '../assets/images/cards/12.png';
+import cardBack from '../assets/images/clouds_background.png';
 
 export default {
   card1,
@@ -23,5 +24,6 @@ export default {
   card9,
   card10,
   card11,
-  card12
+  card12,
+  cardBack
 };

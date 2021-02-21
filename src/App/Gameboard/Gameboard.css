@@ -64,6 +64,11 @@
   justify-content: center;
   font-size: 25px;
   font-weight: bold;
+  perspective: 600px;
+}
+
+.gameboard-tile:hover {
+  border-color: #5786cb !important;
 }
 
 .gameboard-tile div {
@@ -71,8 +76,29 @@
   width: 100%;
 }
 
+.gameboard-tile .card {
+  position: relative;
+  transition: transform .5s;
+  transform-style: preserve-3d;
+}
+
+.gameboard-tile .card .face {
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.gameboard-tile .card.is-flipped {
+  transform: rotateY(180deg);
+}
+
 .gameboard-tile.shake {
   animation: shake .5s;
+  animation-delay: .4s;
+}
+
+.gameboard-tile .card.shrink-until-gone {
+  animation: shrink-until-gone 1s;
+  animation-delay: .4s;
 }
 
 .gameboard-controls {
@@ -92,4 +118,9 @@
   40%, 60% {
     transform: translate3d(4px, 0, 0);
   }
+}
+
+@keyframes shrink-until-gone {
+  0% {max-height: 100%;}
+  100% {max-height: 0%;}
 }
