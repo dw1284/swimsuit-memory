@@ -1,6 +1,6 @@
 # Swimsuit Memory
 
-I had this idea for a simple memory game with added motivation for the user for a while. Got bored one day and worked on it a little bit.
+This is a simple memory matching game that I decided to build one day when I was bored.
 
 ## Demo
 
