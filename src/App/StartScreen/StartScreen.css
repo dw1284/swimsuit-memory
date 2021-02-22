@@ -8,6 +8,7 @@
   width: 100%;
   font-family: "Comic Sans", "Comic Sans MS", "Chalkboard", "ChalkboardSE-Regular", sans-serif;
   font-weight: bold;
+  user-select: none;
 }
 
 .start-title {
