@@ -8,7 +8,7 @@ class Gameboard extends React.Component {
     super(props);
     
     const {gameboardConfig} = this.props;
-    const {tilesPerRow, tilesPerColumn} = gameboardConfig;
+    const {tilesPerRow, tilesPerColumn, backgroundWidth} = gameboardConfig;
     const tileCount = tilesPerRow * tilesPerColumn;
     const tiles = [];
     
@@ -24,8 +24,26 @@ class Gameboard extends React.Component {
     this.state = {
       tiles: _.shuffle(tiles),
       // tiles: tiles,
-      status: 'active' // active or complete
+      status: 'active', // active or complete
+      width: backgroundWidth
     }
+  }
+  
+  componentDidMount() {
+    window.addEventListener('resize', this.updateDimensions);
+    this.updateDimensions();
+  }
+  
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions);
+  }
+  
+  updateDimensions = () => {
+    const {gameboardConfig} = this.props;
+    const {backgroundWidth, backgroundHeight} = gameboardConfig;
+    const gameboardHeight = `${document.getElementsByClassName('gameboard-container')[0].clientHeight}px`;
+    const gameboardWidth = `${parseInt(backgroundWidth) * (parseInt(gameboardHeight) / parseInt(backgroundHeight))}px`;
+    this.setState({width: gameboardWidth, height: gameboardHeight});
   }
   
   onTileClick = (tileId) => {
@@ -112,7 +130,7 @@ class Gameboard extends React.Component {
   
   render() {
     const {gameboardConfig} = this.props;
-    const {backgroundClassName, backgroundWidth, backgroundHeight} = gameboardConfig;
+    const {backgroundClassName, backgroundHeight} = gameboardConfig;
     
     return (
       <div className="gameboard-container">
@@ -120,7 +138,7 @@ class Gameboard extends React.Component {
         <div className="gameboard-instruction">Find matches by clicking on cards</div>
         <div 
           className={`gameboard ${backgroundClassName}`}
-          style={{height: backgroundHeight, width: backgroundWidth}}
+          style={{maxHeight: backgroundHeight, width: this.state.width}}
           >
             {this.generateTileElements()}
         </div>
