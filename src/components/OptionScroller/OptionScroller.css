@@ -11,6 +11,7 @@
   width: 35px;
   font-weight: bold;
   z-index: 1;
+  transform: translate3d(0, 0, 0); /* Hack to fix z-index not being honored by mobile safari */
 }
 
 .selected-option-label {
@@ -38,12 +39,10 @@
 
 .selected-option-label.enter-from-left {
   animation: enter-from-left .3s forwards;
-  /* animation-delay: .65s; */
 }
 
 .selected-option-label.enter-from-right {
   animation: enter-from-right .3s forwards;
-  /* animation-delay: .65s; */
 }
 
 @keyframes exit-left {
