@@ -97,9 +97,8 @@ class Gameboard extends React.Component {
   generateTileElements = () => {
     const {tiles, status} = this.state;
     const {gameboardConfig} = this.props;
-    const {tilesPerRow, tilesPerColumn, backgroundWidth, backgroundHeight} = gameboardConfig;
+    const {tilesPerRow, backgroundWidth} = gameboardConfig;
     const tileWidth = `${Math.trunc(parseInt(backgroundWidth) / tilesPerRow) / parseInt(backgroundWidth) * 100}%`;
-    const tileHeight = `${Math.trunc(parseInt(backgroundHeight) / tilesPerColumn) / parseInt(backgroundHeight) * 100}%`;
     
     return _.map(tiles, tile => {
       const tileBorder = status === 'active' ? '1px solid' : 'none';
@@ -111,7 +110,7 @@ class Gameboard extends React.Component {
         <div 
           key={tile.id}
           className={`gameboard-tile ${tileClassName ? tileClassName : ''}`}
-          style={{border: tileBorder, cursor: tileCursor, height: tileHeight, width: tileWidth}}
+          style={{border: tileBorder, cursor: tileCursor, width: tileWidth}}
           onClick={() => {this.onTileClick(tile.id)}}
         >
           {tile.status === 'matched' &&
