@@ -41,7 +41,7 @@ class Gameboard extends React.Component {
   updateDimensions = () => {
     const {gameboardConfig} = this.props;
     const {backgroundWidth, backgroundHeight} = gameboardConfig;
-    const gameboardHeight = `${document.getElementsByClassName('gameboard-container')[0].clientHeight}px`;
+    const gameboardHeight = `${document.getElementsByClassName('gameboard')[0].clientHeight}px`;
     const gameboardWidth = `${parseInt(backgroundWidth) * (parseInt(gameboardHeight) / parseInt(backgroundHeight))}px`;
     this.setState({width: gameboardWidth, height: gameboardHeight});
   }
