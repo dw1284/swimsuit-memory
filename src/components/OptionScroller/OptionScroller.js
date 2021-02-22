@@ -65,8 +65,10 @@ class App extends React.Component {
     return (
       <div className="option-scroller">
         <button type="button" onClick={this.onPrevClick}>&lt;</button>
-        <div className={`selected-option-label ${animationClassName ? animationClassName : ''}`}>
-          {selectedOptionDisplayText}
+        <div className="selected-option-label-container">
+          <div className={`selected-option-label ${animationClassName ? animationClassName : ''}`}>
+            {selectedOptionDisplayText}
+          </div>
         </div>
         <button type="button" onClick={this.onNextClick}>&gt;</button>
       </div>

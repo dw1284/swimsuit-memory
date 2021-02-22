@@ -10,15 +10,17 @@
 .option-scroller button {
   width: 35px;
   font-weight: bold;
-  z-index: 1;
-  -webkit-transform: translate3d(0, 0, 0); /* Hack to fix z-index not being honored by mobile safari */
+}
+
+.selected-option-label-container {
+  width: 110px;
+  overflow: hidden;
 }
 
 .selected-option-label {
   text-align: center;
   width: 110px;
   font-weight: 300;
-  z-index: 0;
 }
 
 .selected-option-label.hidden-left {
