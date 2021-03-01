@@ -14,6 +14,4 @@ https://swimsuit-memory.herokuapp.com/
 
 Several gameboards are included. More could be added easily.
 
-![gameboard1](screenshots/marge1.png)
-
-![gameboard2](screenshots/marge2.png)
+![gameboard1](screenshots/lola1.png)
