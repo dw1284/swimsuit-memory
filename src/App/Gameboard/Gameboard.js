@@ -47,49 +47,33 @@ class Gameboard extends React.Component {
   }
   
   onTileClick = (tileId) => {
-    let tiles = _.cloneDeep(this.state.tiles);
-    let clickedTile = _.find(tiles, {id: tileId});
-    let otherVisibleTile = _.find(tiles, {status: 'visible'});
+    const tiles = _.cloneDeep(this.state.tiles);
+    const clickedTile = _.find(tiles, {id: tileId});
+    const otherVisibleTile = _.find(tiles, {status: 'visible'});
     
-    if (clickedTile.status === 'matched' || clickedTile.status === 'visible') // Clicked on same tile twice...do nothing
-      return;
+    if (clickedTile.status === 'matched' || clickedTile.status === 'visible')
+      return; // Clicked on same tile twice...do nothing
       
-    if (_.size(_.filter(tiles, {status: 'visible'})) > 1)  // Clicked a tile before previously clicked tiles had flipped back over...do nothing
-      return;
+    if (_.size(_.filter(tiles, {status: 'visible'})) > 1)
+      return;  // Clicked a tile before previously clicked tiles had flipped back over...do nothing
     
     clickedTile.status = 'visible';
     
     this.setState({tiles}, () => {
       if (otherVisibleTile) {
-        tiles = _.cloneDeep(tiles);
-        clickedTile = _.find(tiles, {id: clickedTile.id});
-        otherVisibleTile = _.find(tiles, {id: otherVisibleTile.id});
-        if (clickedTile.value === otherVisibleTile.value) {
-          clickedTile.cardClassName = 'shrink-until-gone';
-          otherVisibleTile.cardClassName = 'shrink-until-gone';
-          this.setState({tiles}, () => {
-            tiles = _.cloneDeep(tiles);
-            clickedTile = _.find(tiles, {id: clickedTile.id});
-            otherVisibleTile = _.find(tiles, {id: otherVisibleTile.id});
-            clickedTile.status = 'matched';
-            otherVisibleTile.status = 'matched';
-            const status = _.every(tiles, {status: 'matched'}) ? 'complete' : 'active';
-            setTimeout(() => {this.setState({tiles, status})}, 1000);
-          });
-        } else {
-          clickedTile.className = 'shake';
-          otherVisibleTile.className = 'shake';
-          this.setState({tiles}, () => {
-            tiles = _.cloneDeep(tiles);
-            clickedTile = _.find(tiles, {id: clickedTile.id});
-            otherVisibleTile = _.find(tiles, {id: otherVisibleTile.id});
-            clickedTile.status = 'hidden';
-            otherVisibleTile.status = 'hidden';
-            clickedTile.className = null;
-            otherVisibleTile.className = null;
-            setTimeout(() => {this.setState({tiles})}, 1000);
-          });
-        }
+        const isMatch = clickedTile.value === otherVisibleTile.value;
+        const cardAnimation = isMatch ? 'shrink-until-gone' : 'shake';
+        const cardStatus = isMatch ? 'matched' : 'hidden';
+        clickedTile.cardClassName = cardAnimation;
+        otherVisibleTile.cardClassName = cardAnimation;
+        this.setState({tiles}, () => {
+          clickedTile.status = cardStatus;
+          otherVisibleTile.status = cardStatus;
+          clickedTile.cardClassName = null;
+          otherVisibleTile.cardClassName = null;
+          const status = _.every(tiles, {status: 'matched'}) ? 'complete' : 'active';
+          setTimeout(() => {this.setState({tiles, status})}, 1000);
+        });
       }
     });
   };
@@ -103,13 +87,12 @@ class Gameboard extends React.Component {
     return _.map(tiles, tile => {
       const tileBorder = status === 'active' ? '1px solid' : 'none';
       const tileCursor = tile.status === 'hidden' ? 'pointer' : 'default';
-      const tileClassName = tile.className;
       const cardClassName = tile.cardClassName;
       
       return (
         <div 
           key={tile.id}
-          className={`gameboard-tile ${tileClassName ? tileClassName : ''}`}
+          className={`gameboard-tile ${cardClassName ? cardClassName : ''}`}
           style={{border: tileBorder, cursor: tileCursor, width: tileWidth}}
           onClick={() => {this.onTileClick(tile.id)}}
         >
