@@ -1,26 +1,25 @@
 .option-scroller {
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: flex-end;
-  width: 180px;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
 .option-scroller button {
-  width: 35px;
+  height: 30px;
+  width: 75px;
   font-weight: bold;
 }
 
 .selected-option-label-container {
-  width: 110px;
+  width: 150px;
   overflow: hidden;
 }
 
 .selected-option-label {
   text-align: center;
-  width: 110px;
   font-weight: 300;
+  padding: 0 25px;
 }
 
 .selected-option-label.hidden-left {
