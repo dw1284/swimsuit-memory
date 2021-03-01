@@ -37,7 +37,7 @@ class App extends React.Component {
         this.setState({selectedOption: newSelectedOption}, () => {
           this.props.onChange(newSelectedOption.text)
         });
-      }, 100)
+      }, 125)
     });
   };
   
