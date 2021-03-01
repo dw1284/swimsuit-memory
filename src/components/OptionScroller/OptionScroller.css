@@ -31,19 +31,19 @@
 }
 
 .selected-option-label.exit-left {
-  animation: exit-left .3s forwards;
+  animation: exit-left .1s forwards;
 }
 
 .selected-option-label.exit-right {
-  animation: exit-right .3s forwards;
+  animation: exit-right .1s forwards;
 }
 
 .selected-option-label.enter-from-left {
-  animation: enter-from-left .3s forwards;
+  animation: enter-from-left .1s forwards;
 }
 
 .selected-option-label.enter-from-right {
-  animation: enter-from-right .3s forwards;
+  animation: enter-from-right .1s forwards;
 }
 
 @keyframes exit-left {
