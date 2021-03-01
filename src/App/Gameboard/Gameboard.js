@@ -64,13 +64,13 @@ class Gameboard extends React.Component {
         const isMatch = clickedTile.value === otherVisibleTile.value;
         const cardAnimation = isMatch ? 'shrink-until-gone' : 'shake';
         const cardStatus = isMatch ? 'matched' : 'hidden';
-        clickedTile.cardClassName = cardAnimation;
-        otherVisibleTile.cardClassName = cardAnimation;
+        clickedTile.animationClassName = cardAnimation;
+        otherVisibleTile.animationClassName = cardAnimation;
         this.setState({tiles}, () => {
           clickedTile.status = cardStatus;
           otherVisibleTile.status = cardStatus;
-          clickedTile.cardClassName = null;
-          otherVisibleTile.cardClassName = null;
+          clickedTile.animationClassName = null;
+          otherVisibleTile.animationClassName = null;
           const status = _.every(tiles, {status: 'matched'}) ? 'complete' : 'active';
           setTimeout(() => {this.setState({tiles, status})}, 1000);
         });
@@ -87,12 +87,12 @@ class Gameboard extends React.Component {
     return _.map(tiles, tile => {
       const tileBorder = status === 'active' ? '1px solid' : 'none';
       const tileCursor = tile.status === 'hidden' ? 'pointer' : 'default';
-      const cardClassName = tile.cardClassName;
+      const animationClassName = tile.animationClassName;
       
       return (
         <div 
           key={tile.id}
-          className={`gameboard-tile ${cardClassName ? cardClassName : ''}`}
+          className={`gameboard-tile ${animationClassName ? animationClassName : ''}`}
           style={{border: tileBorder, cursor: tileCursor, width: tileWidth}}
           onClick={() => {this.onTileClick(tile.id)}}
         >
@@ -100,7 +100,7 @@ class Gameboard extends React.Component {
             <div style={{display: tile.status === 'matched' ? 'block' : 'none', background: 'transparent'}} />
           }
           {tile.status !== 'matched' &&
-            <div className={`card ${tile.status === 'visible' ? 'is-flipped' : ''} ${cardClassName ? cardClassName : ''}`}>
+            <div className={`card ${tile.status === 'visible' ? 'is-flipped' : ''} ${animationClassName ? animationClassName : ''}`}>
               <div className="face" style={{background: `white url('${cardConfigs.cardBack}') left/cover no-repeat`}} />
               <div className="face" style={{background: `white url('${tile.cardImgUrl}') center/contain no-repeat`, transform: 'rotateY(180deg)'}} />
             </div>
